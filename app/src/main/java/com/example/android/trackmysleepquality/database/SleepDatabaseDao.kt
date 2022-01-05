@@ -22,23 +22,23 @@ import androidx.lifecycle.LiveData
 @Dao
 interface SleepDatabaseDao {
     @Insert
-    fun insertNight(night: SleepNight)
+    suspend fun insertNight(night: SleepNight)
 
     @Delete
-    fun deleteNight(night: SleepNight)
+    suspend fun deleteNight(night: SleepNight)
 
     @Update
-    fun updateNight(night: SleepNight)
+    suspend fun updateNight(night: SleepNight)
 
     @Query("SELECT * FROM daily_sleep_quality_table WHERE nightId = :key")
-    fun getNight(key: Long) : SleepNight?
+    suspend fun getNight(key: Long) : SleepNight?
 
     @Query("SELECT * FROM daily_sleep_quality_table ORDER BY nightId DESC LIMIT 1")
-    fun getTonight(): SleepNight?
+    suspend fun getTonight(): SleepNight?
 
     @Query("SELECT * FROM daily_sleep_quality_table ORDER BY nightId DESC")
     fun getAllNights(): LiveData<List<SleepNight>>
 
     @Query("DELETE FROM daily_sleep_quality_table")
-    fun clearNights()
+    suspend fun clearNights()
 }
